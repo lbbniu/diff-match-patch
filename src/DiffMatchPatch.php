@@ -219,13 +219,14 @@ class DiffMatchPatch
      * Convert a diff array into a pretty HTML report.
      *
      * @param array $diffs Array of diff arrays.
+     * @param string $type src,dest
      *
      * @return string HTML representation.
      */
-    public function diff_prettyHtml($diffs)
+    public function diff_prettyHtml($diffs,$type='text1,text2')
     {
         $this->diff->setChanges($diffs);
-        return $this->diff->prettyHtml();
+        return $this->diff->prettyHtml($type);
     }
 
     /**

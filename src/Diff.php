@@ -682,7 +682,7 @@ class Diff
      *
      * @return string HTML representation.
      */
-    public function prettyHtml()
+    public function prettyHtml($type)
     {
         $diffs = $this->getChanges();
 
@@ -693,14 +693,14 @@ class Diff
             $text = str_replace(array(
                 '&', '<', '>', "\n",
             ), array(
-                '&amp;', '&lt;', '&gt;', '&para;<br>',
+                '&amp;', '&lt;', '&gt;', '<br>',
             ), $data);
 
-            if ($op == self::INSERT) {
-                $html .= '<ins style="background:#e6ffe6;">' . $text . '</ins>';
-            } elseif ($op == self::DELETE) {
-                $html .= '<del style="background:#ffe6e6;">' . $text . '</del>';
-            } else {
+            if ($op == self::INSERT && false !== strpos($type, 'text2')) {
+                $html .= '<span style="background:#e6ffe6;">' . $text . '</span>';
+            } elseif ($op == self::DELETE  && false !== strpos($type, 'text1')) {
+                $html .= '<span style="background:#ffe6e6;">' . $text . '</span>';
+            } else if($op == self::EQUAL){
                 $html .= '<span>' . $text . '</span>';
             }
         }
